@@ -5,7 +5,7 @@
         <groupId>au.com.sensis</groupId>
         <artifactId>http-stub-server</artifactId>
         <version>1.0-SNAPSHOT</version>
-    </parent>
+    </parent>o
 
     <artifactId>http-stub-server-standalone</artifactId>
     <packaging>jar</packaging>

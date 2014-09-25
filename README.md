@@ -307,16 +307,14 @@ Note that the returned JSON may not match the body property exactly, as it will 
 
 ## Building
 
-* Requires [Apache Maven 3.0](http://maven.apache.org/)
 * To build all components:
 
-    `mvn clean install`
+    `./gradlew build`
 
-## Creating Eclipse projects
+## Injellij
 
-* Set a classpath variable `M2_REPO` in Eclipse to `/home/<user>/.m2/repository` (Window > Preferences > Java > Build Path > Classpath)
-* Execute `mvn eclipse:eclipse`
-* Import projects in to Eclipse
+File >> Open >> and select `build.gradle` from the root of the project
+
 
 # Running
 

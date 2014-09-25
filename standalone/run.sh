@@ -15,8 +15,8 @@ if [ "$2" != "" ]; then
    HTTPS_PORT=$2
 fi
 
-SCRIPT_DIR=$(dirname $(readlink -f $0))
-JAR="$SCRIPT_DIR/target/http-stub-server-standalone-1.0-SNAPSHOT.one-jar.jar"
+SCRIPT_DIR="./"
+JAR="$SCRIPT_DIR/build/libs/http-stub-server-standalone-1.0-SNAPSHOT.uber.jar"
 KEY_STORE="$SCRIPT_DIR/src/main/resources/ssl_cert.jks"
 
 java \

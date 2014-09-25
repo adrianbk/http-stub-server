@@ -1,2 +1,9 @@
 language: java
+script:
+- TERM=dumb ./gradlew clean check
 
+jdk:
+  - openjdk6
+  - oraclejdk7
+  - openjdk7
+  - oraclejdk8

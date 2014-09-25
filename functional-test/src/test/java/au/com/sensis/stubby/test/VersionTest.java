@@ -23,7 +23,6 @@ public class VersionTest extends TestBase {
     public void testGetVersion() {
         GenericClientResponse response = client.executeGet("/_control/version").assertOk();
         VersionResponse version = response.getJson(VersionResponse.class);
-        
         assertTrue(version.version.length() > 0);
     }
     

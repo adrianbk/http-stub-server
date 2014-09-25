@@ -1,15 +1,5 @@
 package au.com.sensis.stubby.standalone;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.http.HttpStatus;
-import org.apache.log4j.Logger;
-
 import au.com.sensis.stubby.model.StubParam;
 import au.com.sensis.stubby.model.StubRequest;
 import au.com.sensis.stubby.service.JsonServiceInterface;
@@ -18,9 +8,19 @@ import au.com.sensis.stubby.service.StubService;
 import au.com.sensis.stubby.service.model.StubServiceResult;
 import au.com.sensis.stubby.utils.JsonUtils;
 import au.com.sensis.stubby.utils.RequestFilterBuilder;
-
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.apache.http.HttpStatus;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ServerHandler implements HttpHandler {
 
@@ -152,7 +152,7 @@ public class ServerHandler implements HttpHandler {
             throw new RuntimeException("Unsupported method: " + method);
         }
     }
-    
+
     private void handleResponse(HttpExchange exchange, int index) throws IOException {
         String method = exchange.getRequestMethod();
         if (method.equals("GET")) {
@@ -221,16 +221,21 @@ public class ServerHandler implements HttpHandler {
             returnError(exchange, "Graceful shutdown not supported");
         }
     }
-    
-    private void handleVersion(HttpExchange exchange) throws IOException {
-        InputStream stream = getClass().getResourceAsStream("/au/com/sensis/stubby/standalone/version.properties");
-        try {
-            Properties props = new Properties();
-            props.load(stream);
-            returnJson(exchange, props);
-        } finally {
-            stream.close();
-        }
-    }
 
+    private void handleVersion(HttpExchange exchange) throws IOException {
+        InputStream stream = getClass().getResourceAsStream("version.properties");
+        Properties props = new Properties();
+        if (null == stream) {
+            Map<String, String> m = new HashMap<String, String>();
+            m.put("version", "undefined");
+            props.putAll(m);
+        } else {
+            try {
+                props.load(stream);
+            } finally {
+                stream.close();
+            }
+        }
+        returnJson(exchange, props);
+    }
 }

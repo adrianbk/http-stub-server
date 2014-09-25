@@ -1,0 +1,6 @@
+description = 'Generic HTTP Stub Server Functional Tests'
+dependencies {
+  compile project(':http-stub-server-standalone')
+  compile group: 'commons-io', name: 'commons-io', version: '2.4'
+  testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+}

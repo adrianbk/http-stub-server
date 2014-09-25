@@ -1,0 +1,26 @@
+description = 'Generic HTTP Stub Server Stand-alone App.'
+dependencies {
+  compile project(':http-stub-server-core')
+  compile group: 'commons-io', name: 'commons-io', version: '2.4'
+}
+
+task createVersionFile << {
+  File file = new File("${sourceSets.main.output.classesDir}/version.properties")
+  def writer = file.newWriter()
+  Properties props = new Properties()
+  props.setProperty('version', project.version.toString())
+  props.store(writer, null)
+  writer.close()
+}
+processResources.dependsOn createVersionFile
+
+task uberJar(type: Jar) {
+  archiveName = "${jar.archiveName.replaceAll('.jar','.uber.jar')}"
+  from files(sourceSets.main.output.classesDir)
+  from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+  manifest {
+    attributes 'Main-Class': 'au.com.sensis.stubby.standalone.Main'
+  }
+}
+
+jar.dependsOn uberJar

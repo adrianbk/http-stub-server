@@ -1,0 +1,10 @@
+rootProject.name = 'http-stub-server'
+include ':http-stub-server-core'
+include ':http-stub-server-servlet'
+include ':http-stub-server-standalone'
+include ':http-stub-server-test'
+
+project(':http-stub-server-core').projectDir = "$rootDir/core" as File
+project(':http-stub-server-servlet').projectDir = "$rootDir/servlet" as File
+project(':http-stub-server-standalone').projectDir = "$rootDir/standalone" as File
+project(':http-stub-server-test').projectDir = "$rootDir/functional-test" as File

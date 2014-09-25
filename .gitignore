@@ -6,4 +6,6 @@
 /grails/classes
 *.iml
 /.idea
+build/
+.gradle
 

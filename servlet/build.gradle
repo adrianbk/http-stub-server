@@ -1,0 +1,8 @@
+apply plugin: 'war'
+
+description = 'Generic HTTP Stub Server Servlet'
+dependencies {
+  compile project(':http-stub-server-core')
+  compile group: 'commons-io', name: 'commons-io', version: '2.4'
+  providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+}

@@ -6,10 +6,10 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import play.mvc.Controller;
-import au.com.sensis.stubby.HttpMessage;
-import au.com.sensis.stubby.StubbedResponse;
-import au.com.sensis.stubby.play.Transformer;
-import au.com.sensis.stubby.utils.UriUtils;
+import com.github.adrianbk.stubby.HttpMessage;
+import com.github.adrianbk.stubby.StubbedResponse;
+import com.github.adrianbk.stubby.play.Transformer;
+import com.github.adrianbk.stubby.utils.UriUtils;
 
 /*
  * Generic stubbed controller that can be used to stub any URL

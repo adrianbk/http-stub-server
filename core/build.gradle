@@ -7,3 +7,20 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpcore', version:'4.2.1'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.2.1'
 }
+
+apply plugin: 'maven-publish'
+apply from: "$rootDir/gradle/publishing.gradle"
+
+publishing {
+  repositories {
+    configure(releaseRepos)
+  }
+  publications {
+    core(MavenPublication) {
+      from components.java
+      artifact packageSources {
+        classifier "sources"
+      }
+    }
+  }
+}

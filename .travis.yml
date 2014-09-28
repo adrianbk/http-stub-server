@@ -1,9 +1,16 @@
 language: java
 script:
 - TERM=dumb ./gradlew clean check
-
 jdk:
-  - openjdk6
-  - oraclejdk7
-  - openjdk7
-  - oraclejdk8
+- openjdk6
+- oraclejdk7
+- openjdk7
+- oraclejdk8
+after_success:
+- '[[ $TRAVIS_BRANCH == "master" ]] && [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[
+  $TRAVIS_JDK_VERSION == "openjdk6" ]] && TERM=dumb ./gradlew -Pbintray_username=$bintray_username
+  -Pbintray_password=$bintray_password ciPublish -i'
+env:
+  global:
+  - secure: A6KEw41CinlPvsEYgXUPqjWmhY1Xy+O5+uACuiJzWOeoxJt/8/KGT8ZvyNLKi2hnlHEZ84Kg4jO4jtBtkKuURPXw7mc99Y6IJ8qavmMvmj23AgIZHPDDIv4vA8QYlXou22Kw82oZM5b9dhIbUOhmtbpYJtI1MRaLhISsWdSaNas=
+  - secure: RupdsuaVKscnl5WAEBmMwM1oHm1JHxU5EZZviLaH7+DyOF4lcEutGvDZmWaBwvrxGI6yn3VQZ0nL6aO8UmOkzJdkryjgBNFy21uH24w0zGyioHhMxQ5gW2NvBbviepeRatkR7xPNyYQF7/RkzAj1WPGbCcfGFqKsAcB10LuFink=

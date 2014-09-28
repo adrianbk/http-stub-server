@@ -1,8 +1,6 @@
 allprojects {
-  apply plugin: 'maven'
-
-  group = 'au.com.sensis'
-  version = '1.0-SNAPSHOT'
+  group = 'com.github.adrianbk'
+  version = '1.0.1-SNAPSHOT'
 }
 
 subprojects {
@@ -13,10 +11,8 @@ subprojects {
 
   repositories {
     mavenLocal()
-
     maven { url "http://repo.maven.apache.org/maven2" }
   }
-
 
   dependencies {
     compile group: 'log4j', name: 'log4j', version: '1.2.17'

@@ -5,32 +5,32 @@
     <description>Generic HTTP stub server for acceptance testing</description>
 
     <listener>
-        <listener-class>au.com.sensis.stubby.servlet.StubContextListener</listener-class>
+        <listener-class>com.github.adrianbk.stubby.servlet.StubContextListener</listener-class>
     </listener>
 
     <servlet>
         <servlet-name>RequestServlet</servlet-name>
-        <servlet-class>au.com.sensis.stubby.servlet.RequestServlet</servlet-class>
+        <servlet-class>com.github.adrianbk.stubby.servlet.RequestServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>RequestsServlet</servlet-name>
-        <servlet-class>au.com.sensis.stubby.servlet.RequestsServlet</servlet-class>
+        <servlet-class>com.github.adrianbk.stubby.servlet.RequestsServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>ResponseServlet</servlet-name>
-        <servlet-class>au.com.sensis.stubby.servlet.ResponseServlet</servlet-class>
+        <servlet-class>com.github.adrianbk.stubby.servlet.ResponseServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>ResponsesServlet</servlet-name>
-        <servlet-class>au.com.sensis.stubby.servlet.ResponsesServlet</servlet-class>
+        <servlet-class>com.github.adrianbk.stubby.servlet.ResponsesServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>MatcherServlet</servlet-name>
-        <servlet-class>au.com.sensis.stubby.servlet.MatcherServlet</servlet-class>
+        <servlet-class>com.github.adrianbk.stubby.servlet.MatcherServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

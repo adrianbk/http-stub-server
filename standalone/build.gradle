@@ -24,3 +24,26 @@ task uberJar(type: Jar) {
 }
 
 jar.dependsOn uberJar
+
+apply plugin: 'maven-publish'
+apply from: "$rootDir/gradle/publishing.gradle"
+
+publishing {
+  repositories {
+    configure(releaseRepos)
+  }
+  publications {
+    standalone(MavenPublication) {
+      from components.java
+      artifact packageSources {
+        classifier "sources"
+      }
+    }
+
+    //May need to publish separately to work with jcenter
+//    standaloneUber(MavenPublication) {
+//      artifactId "${project.name}-uber"
+//      artifact uberJar
+//    }
+  }
+}

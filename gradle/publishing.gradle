@@ -1,0 +1,51 @@
+ext {
+  //Add your machine name here to publish to a local artifactory repo
+  developerMachines = ['adssrianbk']
+
+  relUsername = project.hasProperty('bintray_username') ? project.getProperty('bintray_username') : 'admin'
+  relPassword = project.hasProperty('bintray_password') ? project.getProperty('bintray_password') : 'password'
+
+  if (developerMachines.contains(System.getenv('USER'))) {
+    artifactRepoBase = 'http://localhost:8081/artifactory'
+    repoPrefix = 'libs'
+  } else {
+    artifactRepoBase = 'http://oss.jfrog.org/artifactory'
+    repoPrefix = 'oss'
+  }
+
+  releaseRepos = {
+    maven {
+      name 'jcenter'
+      url "${artifactRepoBase}/${repoPrefix}-${project.version.endsWith('-SNAPSHOT') ? 'snapshot' : 'release'}-local"
+      credentials {
+        username = "$relUsername"
+        password = "$relPassword"
+      }
+    }
+
+    if (!project.version.endsWith('-SNAPSHOT')) {
+      maven {
+        name 'bintray'
+        url "https://api.bintray.com/maven/dividezero/dividezero/${project.name}"
+        credentials {
+          username = relUsername
+          password = relPassword
+        }
+      }
+    }
+  }
+}
+
+task packageSources(type: Jar) {
+  classifier = 'sources'
+  from sourceSets.main.allSource
+}
+
+task ciPublish {
+  if (project.version.contains('SNAPSHOT')) {
+    logger.quiet("Task :ciPublish configured to publish SANPSHOT artifacts [${project.version}]")
+    dependsOn publish
+  } else {
+    logger.quiet("Task :ciPublish will not publish artifacts [${project.version}] as this is not a SNAPSHOT version")
+  }
+}

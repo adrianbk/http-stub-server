@@ -1,4 +1,4 @@
-package au.com.sensis.stubby.play;
+package com.github.adrianbk.stubby.play;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,9 +13,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import play.mvc.Http;
 import play.mvc.Scope;
-import au.com.sensis.stubby.HttpHeader;
-import au.com.sensis.stubby.HttpMessage;
-import au.com.sensis.stubby.HttpParam;
+import com.github.adrianbk.stubby.HttpHeader;
+import com.github.adrianbk.stubby.HttpMessage;
+import com.github.adrianbk.stubby.HttpParam;
 
 /*
  * Transform between stubby & Play! HTTP structures

@@ -5,6 +5,23 @@ Generic HTTP Stub
 
 The Generic HTTP Stub Server (a.k.a. 'Stubby') is a protocol and server implementation for stubbing HTTP interactions, mainly aimed at automated acceptance testing. There's also some example client code in various languages.
 
+## Dependencies
+
+### JCenter Repo
+http://oss.jfrog.org/artifactory/oss-release-local
+
+### Gradle
+```groovy
+repositories {
+    jcenter()
+}
+...
+
+dependencies {
+    compile(group: 'com.github.adrianbk', name: 'http-stub-server-standalone', version: '1.0')
+}
+```
+
 ## Overview
 
 A typical use case is a web application that depends on some back-end service. You might want to perform acceptance testing of your web application, say via Cucumber + Selenium. 

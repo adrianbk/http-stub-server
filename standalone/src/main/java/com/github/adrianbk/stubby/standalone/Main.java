@@ -30,7 +30,7 @@ public class Main {
         }
 
         if (args.length >= 2) { // HTTPS server
-            HttpsServerInstance httpsServer = new HttpsServerInstance(Integer.parseInt(args[1]), handler, executor);
+            TrustedHttpsServerInstance httpsServer = new TrustedHttpsServerInstance(Integer.parseInt(args[1]), handler, executor);
             LOGGER.info("Started HTTPS server on " + httpsServer.getAddress());
             servers.add(httpsServer);
         }

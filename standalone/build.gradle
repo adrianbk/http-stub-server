@@ -16,10 +16,10 @@ processResources.dependsOn createVersionFile
 
 task uberJar(type: Jar) {
   archiveName = "${jar.archiveName.replaceAll('.jar','.uber.jar')}"
-  from files(sourceSets.main.output.classesDir)
+  from sourceSets.main.output
   from configurations.runtime.asFileTree.files.collect { zipTree(it) }
   manifest {
-    attributes 'Main-Class': 'au.com.sensis.stubby.standalone.Main'
+    attributes 'Main-Class': 'com.github.adrianbk.stubby.standalone.Main'
   }
 }
 

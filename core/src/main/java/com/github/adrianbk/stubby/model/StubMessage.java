@@ -1,20 +1,18 @@
 package com.github.adrianbk.stubby.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import com.github.adrianbk.stubby.utils.DeepCopyUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import com.github.adrianbk.stubby.utils.DeepCopyUtils;
+import java.util.*;
 
 public abstract class StubMessage {
 
     private List<StubParam> headers;
     private Object body;
 
-    protected StubMessage() { }
-    
+    protected StubMessage() {
+    }
+
     protected StubMessage(StubMessage other) { // copy constructor
         this.body = (other.body != null) ? DeepCopyUtils.deepCopy(other.body) : null;
         if (other.headers != null) {
@@ -24,9 +22,23 @@ public abstract class StubMessage {
             }
         }
     }
-    
+
     public List<StubParam> getHeaders() {
         return headers;
+    }
+
+    public Map<String, List<String>> flattenHeaders() {
+        Map<String, List<String>> results = new HashMap<String, List<String>>();
+        for (StubParam param : headers) {
+            if (results.containsKey(param.getName())) {
+                results.get(param.getName()).add(param.getValue());
+            } else {
+                ArrayList<String> initial = new ArrayList<String>();
+                initial.add(param.getValue());
+                results.put(param.getName(), initial);
+            }
+        }
+        return results;
     }
 
     public void setHeaders(List<StubParam> headers) {
@@ -40,7 +52,7 @@ public abstract class StubMessage {
     public void setBody(Object body) {
         this.body = body;
     }
-    
+
     @JsonIgnore
     public String getHeader(String name) { // get first, case insensitive lookup
         if (headers != null) {
@@ -52,7 +64,7 @@ public abstract class StubMessage {
         }
         return null; // not found
     }
-    
+
     @JsonIgnore
     public void removeHeader(String name) { // case insensitive lookup
         if (headers != null) {
@@ -64,16 +76,16 @@ public abstract class StubMessage {
             }
         }
     }
-    
+
     @JsonIgnore
     public void setHeader(String name, String value) { // replace value, case insensitive lookup
         removeHeader(name);
         if (headers == null) {
             headers = new ArrayList<StubParam>();
         }
-        headers.add(new StubParam(name, value));        
+        headers.add(new StubParam(name, value));
     }
-    
+
     @JsonIgnore
     public List<String> getHeaders(String name) { // get all, case insensitive lookup
         List<String> result = new ArrayList<String>();
@@ -86,5 +98,5 @@ public abstract class StubMessage {
         }
         return result; // empty list if not found
     }
-    
+
 }

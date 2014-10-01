@@ -1,15 +1,14 @@
 package com.github.adrianbk.stubby.test;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.github.adrianbk.stubby.utils.JsonUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.util.EntityUtils;
 
-import com.github.adrianbk.stubby.utils.JsonUtils;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GenericClientResponse {
 
@@ -40,7 +39,7 @@ public class GenericClientResponse {
     public int getStatus() {
         return response.getStatusLine().getStatusCode();
     }
-    
+
     public String getHeader(String name) {
         if (response.getFirstHeader(name) != null) {
             return response.getFirstHeader(name).getValue();
@@ -48,11 +47,13 @@ public class GenericClientResponse {
             return null;
         }
     }
-    
+
     public List<String> getHeaders(String name) {
         List<String> result = new ArrayList<String>();
-        for (Header header : response.getHeaders(name)) {
-            result.add(header.getValue());
+        for (Header header : response.getAllHeaders()) {
+            if (header.getName().equals(name)) {
+                result.add(header.getValue());
+            }
         }
         return result;
     }
@@ -63,7 +64,7 @@ public class GenericClientResponse {
         }
         return this;
     }
-    
+
     public GenericClientResponse assertBody() {
         if (!hasBody()) {
             throw new RuntimeException("Response body expected");

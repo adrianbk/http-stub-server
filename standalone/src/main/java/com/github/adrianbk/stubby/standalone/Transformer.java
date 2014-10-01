@@ -1,20 +1,18 @@
 package com.github.adrianbk.stubby.standalone;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-
 import com.github.adrianbk.stubby.model.StubParam;
 import com.github.adrianbk.stubby.model.StubRequest;
 import com.github.adrianbk.stubby.model.StubResponse;
 import com.github.adrianbk.stubby.utils.JsonUtils;
-
 import com.sun.net.httpserver.HttpExchange;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /*
  * Transform between stubby & HttpExchange structures
@@ -59,9 +57,7 @@ public class Transformer {
 
     public static void populateExchange(StubResponse message, HttpExchange exchange) throws IOException {
         if (message.getHeaders() != null) {
-            for (StubParam header : message.getHeaders()) {
-                exchange.getResponseHeaders().add(header.getName(), header.getValue());
-            }
+            exchange.getResponseHeaders().putAll(message.flattenHeaders());
         }
         exchange.sendResponseHeaders(message.getStatus(), 0); // arbitrary-length body
         if (message.getBody() instanceof String) {

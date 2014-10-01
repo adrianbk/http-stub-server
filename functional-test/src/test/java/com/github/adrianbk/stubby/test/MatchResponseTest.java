@@ -24,7 +24,8 @@ public class MatchResponseTest extends TestBase {
         GenericClientResponse response = client.executeGet("/test");
         
         assertEquals(201, response.getStatus());
-        assertEquals(Arrays.asList("bar1", "bar2", "bar3; bar4"), response.getHeaders("X-Foo"));
+        assertEquals(Arrays.asList("bar1", "bar2"), response.getHeaders("X-Foo"));
+        assertEquals(Arrays.asList("bar3; bar4"), response.getHeaders("x-foo"));
         assertEquals("response body", response.getText());
     }
 
